@@ -30,11 +30,32 @@ function showMessage(text, isError=false){
  * @param {Employee[]} employeesToRender
  */
 function renderEmployees(employeesToRender = myCompany.getAllEmployees()) {
+
   if (employeesToRender.length === 0) {
     formContainer.innerHTML = '<p>Employee list is empty or no matches found.</p>';
     return;
   }
-  console.log(employeesToRender);
+
+  let html = '<ul>';
+  employeesToRender.forEach(emp => {
+    html += `
+      <li>
+        <div>
+          <strong>ID:</strong> ${emp.getId()} |
+          <strong>Name:</strong> ${emp.getName()} |
+          <strong>Title:</strong> ${emp.title} |
+          <strong>Salary:</strong> ${emp.getSalary()}
+        </div>
+        <div>
+          <button onclick="editEmployee(${emp.getId()})">Edit</button>
+          <button onclick="deleteEmployee(${emp.getId()})" style="color: red;">Delete</button>
+        </div>      
+      </li>
+    `;
+  })
+
+  html += '</ul>';
+  formContainer.innerHTML = html;
 }
 
 btnAdd.addEventListener('click', () => {
@@ -83,5 +104,20 @@ btnReset.addEventListener('click', () => {
   inputSearch.value = '';
   renderEmployees();
 });
+
+window.deleteEmployee = (id) => {
+  myCompany.fireEmployee(id);
+  showMessage(`Employee with ID ${id} deleted`);
+  renderEmployees();
+};
+
+window.editEmployee = (id) => {
+  const emp = myCompany.getAllEmployees().find(e => e.getId() === id);
+  inputId.value = emp.getId();
+  inputName.value = emp.getName();
+  inputTitle.value = emp.getName();
+  inputSalary.value = emp.getSalary();
+  showMessage('Data loaded. Edit and click "Add / Update Employee"');
+}
 
 renderEmployees();
