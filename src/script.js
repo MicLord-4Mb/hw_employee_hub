@@ -36,20 +36,32 @@ function renderEmployees(employeesToRender = myCompany.getAllEmployees()) {
   }
 }
 
-btnAdd.addEventListener('click', showMessage)
-{
-  showMessage('Button Add clicked')
-}
+btnAdd.addEventListener('click', () => {
+  showMessage('Add button clicked')
+
+  // Reset form before render
+  inputId.value = '';
+  inputName.value = '';
+  inputTitle.value = '';
+  inputSalary.value = '';
+
+  renderEmployees();
+});
 
 
-btnSearch.addEventListener('click', showMessage)
-{
-  showMessage('Button Search clicked')
-}
+btnSearch.addEventListener('click', () => {
+  showMessage('Search button clicked')
 
-btnReset.addEventListener('click', showMessage)
-{
-  showMessage('Button Reset clicked')
-}
+  const filteredEmployees = myCompany.getAllEmployees()
+
+  renderEmployees(filteredEmployees);
+});
+
+btnReset.addEventListener('click', () => {
+  showMessage('Reset button clicked')
+
+  inputSearch.value = '';
+  renderEmployees();
+});
 
 renderEmployees();
