@@ -34,10 +34,30 @@ function renderEmployees(employeesToRender = myCompany.getAllEmployees()) {
     formContainer.innerHTML = '<p>Employee list is empty or no matches found.</p>';
     return;
   }
+  console.log(employeesToRender);
 }
 
 btnAdd.addEventListener('click', () => {
-  showMessage('Add button clicked')
+  const id = parseInt(inputId.value);
+  const name = inputName.value.trim();
+  const title = inputTitle.value.trim();
+  const salary = parseFloat(inputSalary.value);
+
+  // Data validation block
+  if (!id || isNaN(id)) return showMessage('Error: Invalid ID', true);
+  if (!name) return showMessage('Error: Name is empty', true);
+  if (!title) return showMessage('Error: Title is empty', true);
+  if (!salary || salary <= 10000) return showMessage('Error: Salary must be greater than 10`000 (company rules)', true);
+
+  const isExist = myCompany.getAllEmployees().find(e => e.getId() === id);
+
+  // Update employee section
+  if (isExist) return showMessage('Need Update Here', true);
+
+  // add employee section
+  const newEmployee = new Employee(id, name, title, salary);
+  myCompany.hireEmployee(newEmployee);
+  showMessage('Successfully Added Employee');
 
   // Reset form before render
   inputId.value = '';
