@@ -14,11 +14,21 @@ const btnReset = document.getElementById('btn-reset');
 const inputSearch = document.getElementById('search-query');
 const messageBox = document.getElementById('message-box');
 
+/**
+ * Show the action message
+ * @param {string} text
+ * @param {boolean} isError
+ */
+
 function showMessage(text, isError=false){
   messageBox.textContent = text;
   messageBox.style.color = isError ? 'red' : 'green';
 }
 
+/**
+ * Render employees list in the main section
+ * @param {Employee[]} employeesToRender
+ */
 function renderEmployees(employeesToRender = myCompany.getAllEmployees()) {
   if (employeesToRender.length === 0) {
     formContainer.innerHTML = '<p>Employee list is empty or no matches found.</p>';
@@ -26,5 +36,8 @@ function renderEmployees(employeesToRender = myCompany.getAllEmployees()) {
   }
   return;
 }
+
+
+
 
 renderEmployees();
