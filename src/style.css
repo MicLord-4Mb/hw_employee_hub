@@ -37,8 +37,8 @@ ul li div {
 }
 
 .app-header {
-    flex: 0 0 175px;
     width: 100vw;
+    height: 175px;
     text-align: center;
 }
 
@@ -46,6 +46,7 @@ ul li div {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    justify-content: space-between;
 }
 
 .menu-section-add {
@@ -53,6 +54,14 @@ ul li div {
     flex-direction: row;
     gap: 10px;
     justify-content: center;
+}
+
+.menu-inp-num {
+
+}
+
+.menu-inp-txt {
+
 }
 
 .menu-section-find {
@@ -77,4 +86,8 @@ ul li div {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+#btn-add {
+    width: 170px;
 }
