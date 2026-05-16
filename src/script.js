@@ -15,7 +15,7 @@ const inputSearch = document.getElementById('search-query');
 const messageBox = document.getElementById('message-box');
 
 /**
- * Show the action message
+ * Show an action message
  * @param {string} text
  * @param {boolean} isError
  */
@@ -73,12 +73,18 @@ btnAdd.addEventListener('click', () => {
   const isExist = myCompany.getAllEmployees().find(e => e.getId() === id);
 
   // Update employee section
-  if (isExist) return showMessage('Need Update Here', true);
-
-  // add employee section
-  const newEmployee = new Employee(id, name, title, salary);
-  myCompany.hireEmployee(newEmployee);
-  showMessage('Successfully Added Employee');
+  if (isExist) {
+    myCompany.fireEmployee(id);
+    const updatedEmp = new Employee(id, name, title, salary);
+    myCompany.hireEmployee(updatedEmp);
+    showMessage(`Employee info with ID${id} updated.`);
+  }
+  else {
+    // add employee section
+    const newEmployee = new Employee(id, name, title, salary);
+    myCompany.hireEmployee(newEmployee);
+    showMessage('Successfully Added Employee');
+  }
 
   // Reset form before render
   inputId.value = '';
