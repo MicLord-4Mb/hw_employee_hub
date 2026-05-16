@@ -13,6 +13,9 @@ const btnSearch = document.getElementById('btn-search');
 const btnReset = document.getElementById('btn-reset');
 const inputSearch = document.getElementById('search-query');
 const messageBox = document.getElementById('message-box');
+const rootStyles = window.getComputedStyle(document.documentElement);
+const successColor = rootStyles.getPropertyValue('--color-success').trim();
+const errorColor = rootStyles.getPropertyValue('--color-cancel').trim();
 
 /**
  * Show an action message
@@ -22,7 +25,7 @@ const messageBox = document.getElementById('message-box');
 
 function showMessage(text, isError=false){
   messageBox.textContent = text;
-  messageBox.style.color = isError ? 'red' : 'green';
+  messageBox.style.color = isError ? errorColor : successColor;
 }
 
 /**
@@ -48,7 +51,7 @@ function renderEmployees(employeesToRender = myCompany.getAllEmployees()) {
         </div>
         <div>
           <button onclick="editEmployee(${emp.getId()})">Edit</button>
-          <button onclick="deleteEmployee(${emp.getId()})" style="color: red;">Delete</button>
+          <button onclick="deleteEmployee(${emp.getId()})" style="color: ${errorColor}">Delete</button>
         </div>      
       </li>
     `;

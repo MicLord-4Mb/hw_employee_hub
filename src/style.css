@@ -1,6 +1,20 @@
 * {
+    /*outline: 1px solid red;*/
+}
 
-    outline: 1px solid red;
+:root {
+    /* ── Colors ── */
+    --color-primary-high: #212121;
+    --color-primary-medium: #3D3D3D;
+    --color-primary-light: #F1F7FA;
+    --color-cancel: #FC6363;
+    --color-success: #06C698;
+    --color-neutral-white: #FFFFFF;
+    --color-neutral-title: #262626;
+    --color-neutral-btext: #808080;
+    --color-neutral-stroke: #EEEEEE;
+    --color-neutral-bg: #FAFAFA;
+
 }
 
 ul {
@@ -17,10 +31,11 @@ ul li {
     justify-content: space-between;
     gap: 10px;
 
-    border: 1px solid #333;
+    border: 1px solid var(--color-primary-medium);
     margin-bottom: 10px;
     padding: 15px;
     border-radius: 5px;
+    box-shadow: 1px 0 0 var(--color-primary-medium);
 }
 
 ul li div {
@@ -34,12 +49,15 @@ ul li div {
     flex-direction: column;
     align-items: center;
     gap: 2px;
+    background-color: var(--color-neutral-white);
 }
 
 .app-header {
     width: 100vw;
     height: 175px;
     text-align: center;
+    background-color: var(--color-neutral-bg);
+    color: var(--color-neutral-title);
 }
 
 .menu-wrapper {
@@ -79,13 +97,16 @@ ul li div {
 .app-content {
     flex: 1 0 auto;
     padding: 20px;
+    color: var(--color-primary-medium);
 }
 
 .app-footer {
+    width: 100%;
     flex: 0 0 50px;
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: var(--color-neutral-bg);
 }
 
 #btn-add {
