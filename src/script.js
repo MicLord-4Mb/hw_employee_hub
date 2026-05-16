@@ -34,10 +34,22 @@ function renderEmployees(employeesToRender = myCompany.getAllEmployees()) {
     formContainer.innerHTML = '<p>Employee list is empty or no matches found.</p>';
     return;
   }
-  return;
+}
+
+btnAdd.addEventListener('click', showMessage)
+{
+  showMessage('Button Add clicked')
 }
 
 
+btnSearch.addEventListener('click', showMessage)
+{
+  showMessage('Button Search clicked')
+}
 
+btnReset.addEventListener('click', showMessage)
+{
+  showMessage('Button Reset clicked')
+}
 
 renderEmployees();
