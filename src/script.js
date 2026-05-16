@@ -65,7 +65,7 @@ btnAdd.addEventListener('click', () => {
   const salary = parseFloat(inputSalary.value);
 
   // Data validation block
-  if (!id || isNaN(id)) return showMessage('Error: Invalid ID', true);
+  if (!id || isNaN(id) || id<1) return showMessage('Error: Invalid ID', true);
   if (!name) return showMessage('Error: Name is empty', true);
   if (!title) return showMessage('Error: Title is empty', true);
   if (!salary || salary <= 10000) return showMessage('Error: Salary must be greater than 10`000 (company rules)', true);
@@ -98,15 +98,25 @@ btnAdd.addEventListener('click', () => {
 
 btnSearch.addEventListener('click', () => {
   showMessage('Search button clicked')
+  const query = inputSearch.value.toLowerCase().trim();
+  if (!query) return renderEmployees();
 
-  const filteredEmployees = myCompany.getAllEmployees()
+  const filteredEmployees = myCompany.getAllEmployees().filter(emp =>
+    emp.getName().toLowerCase().includes(query) ||
+    emp.title.toLowerCase().includes(query)
+  );
+
+  if (filteredEmployees.length === 0) {
+    showMessage('No results found.', true);
+  }
+  else {
+    showMessage(`Employees found: ${filteredEmployees.length}`);
+  }
 
   renderEmployees(filteredEmployees);
 });
 
 btnReset.addEventListener('click', () => {
-  showMessage('Reset button clicked')
-
   inputSearch.value = '';
   renderEmployees();
 });
@@ -123,7 +133,7 @@ window.editEmployee = (id) => {
   inputName.value = emp.getName();
   inputTitle.value = emp.getName();
   inputSalary.value = emp.getSalary();
-  showMessage('Data loaded. Edit and click "Add / Update Employee"');
+  showMessage('Data loaded to the head section. Edit and click "Add / Update Employee"');
 }
 
 renderEmployees();
