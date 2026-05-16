@@ -8,11 +8,39 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 2px;
 }
 
 .app-header {
-    flex: 0 0 100px;
+    flex: 0 0 175px;
+    width: 100vw;
+    text-align: center;
 }
+
+.menu-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.menu-section-add {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    justify-content: center;
+}
+
+.menu-section-find {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    justify-content: center;
+}
+
+.menu-msg {
+    text-align: center;
+}
+
 
 .app-content {
     flex: 1 0 auto;
