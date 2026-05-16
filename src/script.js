@@ -118,6 +118,7 @@ btnSearch.addEventListener('click', () => {
 
 btnReset.addEventListener('click', () => {
   inputSearch.value = '';
+  showMessage('')
   renderEmployees();
 });
 
