@@ -1,0 +1,19 @@
+* {
+    outline: 1px solid red;
+}
+
+.app {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.app-header {
+    flex: 0 0 100px;
+}
+
+.app-footer {
+    flex: 0 0 50px;
+}
