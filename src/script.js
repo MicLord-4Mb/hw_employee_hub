@@ -131,7 +131,7 @@ window.editEmployee = (id) => {
   const emp = myCompany.getAllEmployees().find(e => e.getId() === id);
   inputId.value = emp.getId();
   inputName.value = emp.getName();
-  inputTitle.value = emp.getName();
+  inputTitle.value = emp.title;
   inputSalary.value = emp.getSalary();
   showMessage('Data loaded to the head section. Edit and click "Add / Update Employee"');
 }
