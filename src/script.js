@@ -128,6 +128,8 @@ btnAdd.addEventListener('click', () => {
     isExist.title = title;
     isExist.setSalary(salary);
     showMessage(`Employee info with ID${id} updated.`);
+    // Look in editEmployee
+    inputId.disabled = false;
   }
   else {
     // add employee section
@@ -184,6 +186,8 @@ function editEmployee(id) {
   // Foolproof protection 8-) Paranoid online... )))
   if (emp) {
     inputId.value = emp.getId();
+    // PAranoid bock field
+    inputId.disabled = true;
     inputName.value = emp.getName();
     inputTitle.value = emp.title;
     inputSalary.value = emp.getSalary();
