@@ -29,6 +29,17 @@ function showMessage(text, isError=false){
 }
 
 /**
+ * Reset the input form and unlock ID field
+ */
+function resetEmployeeForm(){
+  inputId.value = '';
+  inputName.value = '';
+  inputTitle.value = '';
+  inputSalary.value = '';
+  inputId.disabled = false;
+}
+
+/**
  * Render employees list in the main section
  * @param {Employee[]} employeesToRender
  */
@@ -115,7 +126,7 @@ btnAdd.addEventListener('click', () => {
   const salary = parseFloat(inputSalary.value);
 
   // Data validation block
-  if (!id || isNaN(id) || id<1) return showMessage('Error: Invalid ID', true);
+  if (!id || isNaN(id) || id < 1) return showMessage('Error: Invalid ID', true);
   if (!name) return showMessage('Error: Name is empty', true);
   if (!title) return showMessage('Error: Title is empty', true);
   if (!salary || salary <= 10000) return showMessage('Error: Salary must be greater than 10`000 (company rules)', true);
@@ -128,8 +139,6 @@ btnAdd.addEventListener('click', () => {
     isExist.title = title;
     isExist.setSalary(salary);
     showMessage(`Employee info with ID${id} updated.`);
-    // Look in editEmployee
-    inputId.disabled = false;
   }
   else {
     // add employee section
@@ -138,12 +147,7 @@ btnAdd.addEventListener('click', () => {
     showMessage('Successfully Added Employee');
   }
 
-  // Reset form before render
-  inputId.value = '';
-  inputName.value = '';
-  inputTitle.value = '';
-  inputSalary.value = '';
-
+  resetEmployeeForm();
   renderEmployees();
 });
 
@@ -169,7 +173,8 @@ btnSearch.addEventListener('click', () => {
 
 btnReset.addEventListener('click', () => {
   inputSearch.value = '';
-  showMessage('')
+  showMessage('');
+  resetEmployeeForm();
   renderEmployees();
 });
 
