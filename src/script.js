@@ -149,7 +149,6 @@ btnAdd.addEventListener('click', () => {
 
 
 btnSearch.addEventListener('click', () => {
-  showMessage('Search button clicked')
   const query = inputSearch.value.toLowerCase().trim();
   if (!query) return renderEmployees();
 
