@@ -17,16 +17,32 @@
       <div class="app-actions">
         <div class="menu-wrapper">
           <section class="menu-section-add">
-            <input class="menu-inp-num" type="number" id="emp-id" placeholder="ID (example, 1)" />
-            <input class="menu-inp-txt" type="text" id="emp-name" placeholder="Name" />
-            <input class="menu-inp-txt" type="text" id="emp-title" placeholder="Title" />
-            <input class="menu-inp-num" type="number" id="emp-salary" placeholder="Salary" />
+            <div>
+              <label for="emp-id">ID</label>
+              <input class="menu-inp-num" type="number" id="emp-id" placeholder="ID (example, 1)" />
+            </div>
+            <div>
+              <label for="emp-name">Name:</label>
+              <input class="menu-inp-txt" type="text" id="emp-name" placeholder="Name" />
+            </div>
+            <div>
+              <label for="emp-title">Title/Division:</label>
+              <input class="menu-inp-txt" type="text" id="emp-title" placeholder="Title" />
+            </div>
+            <div>
+              <label for="emp-salary">Salary:</label>
+              <input class="menu-inp-num" type="number" id="emp-salary" placeholder="Salary" />
+            </div>
             <button class="btn" id="btn-add">Add / Update employee</button>
           </section>
           <section class="menu-section-find">
-            <input class="menu-inp-txt" type="text" id="search-query" placeholder="Find an employee" />
+            <span>
+              <label for="search-query">Find:</label>
+              <input class="menu-inp-txt" type="text" id="search-query" placeholder="Find an employee" />
+            </span>
             <button class="btn" id="btn-search">Find</button>
             <button class="btn" id="btn-reset">Reset</button>
+            <button class="btn" id="btn-clear">Clear</button>
           </section>
           <div class="menu-msg" id="message-box"></div>
         </div>

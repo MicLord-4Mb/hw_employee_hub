@@ -2,6 +2,7 @@ import {Company, Employee} from "./obj.js";
 
 const myCompany = new Company();
 
+myCompany.loadFromStorage();
 
 const formContainer = document.querySelector('.app-form');
 const inputId = document.getElementById('emp-id');
@@ -16,13 +17,13 @@ const messageBox = document.getElementById('message-box');
 const rootStyles = window.getComputedStyle(document.documentElement);
 const successColor = rootStyles.getPropertyValue('--color-success').trim();
 const errorColor = rootStyles.getPropertyValue('--color-cancel').trim();
+const btnClear = document.getElementById('btn-clear');
 
 /**
  * Show an action message
  * @param {string} text
  * @param {boolean} isError
  */
-
 function showMessage(text, isError=false){
   messageBox.textContent = text;
   messageBox.style.color = isError ? errorColor : successColor;
@@ -147,6 +148,7 @@ btnAdd.addEventListener('click', () => {
     showMessage('Successfully Added Employee');
   }
 
+  myCompany.saveToStorage();
   resetEmployeeForm();
   renderEmployees();
 });
@@ -176,6 +178,19 @@ btnReset.addEventListener('click', () => {
   showMessage('');
   resetEmployeeForm();
   renderEmployees();
+});
+
+btnClear.addEventListener('click', () => {
+  const isConfirmed = confirm(
+    'Are you sure delete all company data from local storage?'
+  );
+
+  if (isConfirmed) {
+    myCompany.clearCompany();
+    resetEmployeeForm();
+    renderEmployees();
+    showMessage('Successfully deleting all company data', true);
+  }
 });
 
 function deleteEmployee(id) {

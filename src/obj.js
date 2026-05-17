@@ -80,6 +80,19 @@ export class Employee {
   toString(){
     return `Employee ${this.#name} ${this.#salary} ${this.title} `;
   }
+
+  /**
+   * Convert class to JSON format
+   * @returns {Object}
+   */
+  toJSON(){
+    return {
+      id:this.getId(),
+      name:this.getName(),
+      title:this.title,
+      salary:this.getSalary()
+    }
+  }
 }
 
 /**
@@ -89,6 +102,8 @@ export class Employee {
 export class Company{
   /** @type {Employee[]} Array containing the list of all hired employees (private field) */
   #employees=[];
+  /** @type {string} Key for local storage */
+  #storageKey = 'company_employees_data';
 
   /**
    * Hires (adds) a new employee to the roster.
@@ -149,5 +164,41 @@ export class Company{
     if (this.#employees.length === 0) return null;
 
     return this.#employees.reduce((min, e) => (e.getSalary() < min.getSalary() ? e : min));
+  }
+
+  /**
+   * Clear all company data
+   */
+  clearCompany() {
+    this.#employees = [];
+    localStorage.removeItem(this.#storageKey);
+  }
+
+  /**
+   * Save all company data on a local storage
+   */
+  saveToStorage(){
+    const compData = this.#employees.map(
+      emp => emp.toJSON()
+    );
+    localStorage.setItem(this.#storageKey, JSON.stringify(compData));
+  }
+
+  /**
+   * Load all company data from a local storage
+   */
+  loadFromStorage(){
+    try {
+      const dataStr = localStorage.getItem(this.#storageKey);
+      if (!dataStr) return;
+
+      const rawData = JSON.parse(dataStr);
+      this.#employees = rawData.map(
+        field => new Employee(field.id, field.name, field.title, field.salary)
+      )
+    } catch (error) {
+      console.error('Error loading Employee data:', error);
+      this.#employees = [];
+    }
   }
 }
