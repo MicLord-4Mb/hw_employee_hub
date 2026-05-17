@@ -116,7 +116,7 @@ function renderEmployees(employeesToRender = myCompany.getAllEmployees()) {
     // Delete button
     const deleteBtn = document.createElement('button');
     deleteBtn.textContent = 'Delete';
-    editBtn.className = 'btn';
+    deleteBtn.className = 'btn';
     deleteBtn.style.color = errorColor;
     deleteBtn.addEventListener('click', () => {
       deleteEmployee(emp.getId());
