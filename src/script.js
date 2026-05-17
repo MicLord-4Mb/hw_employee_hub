@@ -34,31 +34,78 @@ function showMessage(text, isError=false){
  */
 function renderEmployees(employeesToRender = myCompany.getAllEmployees()) {
 
+  // reset container
+  formContainer.textContent = '';
+
+  // Empty message
   if (employeesToRender.length === 0) {
-    formContainer.innerHTML = '<p>Employee list is empty or no matches found.</p>';
+    const emptyMsg = document.createElement('p');
+    emptyMsg.textContent = 'Employee list is empty or no matches found.';
+    formContainer.appendChild(emptyMsg);
     return;
   }
 
-  let html = '<ul>';
-  employeesToRender.forEach(emp => {
-    html += `
-      <li>
-        <div>
-          <strong>ID:</strong> ${emp.getId()} |
-          <strong>Name:</strong> ${emp.getName()} |
-          <strong>Title:</strong> ${emp.title} |
-          <strong>Salary:</strong> ${emp.getSalary()}
-        </div>
-        <div>
-          <button onclick="editEmployee(${emp.getId()})">Edit</button>
-          <button onclick="deleteEmployee(${emp.getId()})" style="color: ${errorColor}">Delete</button>
-        </div>      
-      </li>
-    `;
-  })
+  // Employees list generator
+  const ul = document.createElement('ul');
 
-  html += '</ul>';
-  formContainer.innerHTML = html;
+  employeesToRender.forEach(emp => {
+    const li = document.createElement('li');
+
+    // Employee Info container
+    const empInfoDiv = document.createElement('div');
+
+    // ID
+    const boldId = document.createElement('strong');
+    boldId.textContent = 'ID: ';
+    empInfoDiv.appendChild(boldId);
+    empInfoDiv.appendChild(document.createTextNode(`${emp.getId()} | `));
+
+    // Name
+    const boldName = document.createElement('strong');
+    boldName.textContent = 'Name: ';
+    empInfoDiv.appendChild(boldName);
+    empInfoDiv.appendChild(document.createTextNode(`${emp.getName()} | `));
+
+    // Title
+    const boldTitle = document.createElement('strong');
+    boldTitle.textContent = 'Title: ';
+    empInfoDiv.appendChild(boldTitle);
+    empInfoDiv.appendChild(document.createTextNode(`${emp.title} | `));
+
+    // Salary
+    const boldSalary = document.createElement('strong');
+    boldSalary.textContent = 'Salary: ';
+    empInfoDiv.appendChild(boldSalary);
+    empInfoDiv.appendChild(document.createTextNode(`${emp.getSalary()}`));
+
+    // Button container
+    const actionsDiv = document.createElement('div');
+
+    // Edit button
+    const editBtn = document.createElement('button');
+    editBtn.textContent = 'Edit';
+    editBtn.addEventListener('click', () => {
+      editEmployee(emp.getId());
+    });
+
+    // Delete button
+    const deleteBtn = document.createElement('button');
+    deleteBtn.textContent = 'Delete';
+    deleteBtn.style.color = errorColor;
+    deleteBtn.addEventListener('click', () => {
+      deleteEmployee(emp.getId());
+    });
+
+    // Lets bundling everything
+    actionsDiv.appendChild(editBtn);
+    actionsDiv.appendChild(deleteBtn);
+    li.appendChild(empInfoDiv);
+    li.appendChild(actionsDiv);
+    ul.appendChild(li);
+  });
+
+  // Post the form
+  formContainer.appendChild(ul);
 }
 
 btnAdd.addEventListener('click', () => {
@@ -125,19 +172,23 @@ btnReset.addEventListener('click', () => {
   renderEmployees();
 });
 
-window.deleteEmployee = (id) => {
+function deleteEmployee(id) {
   myCompany.fireEmployee(id);
   showMessage(`Employee with ID ${id} deleted`);
   renderEmployees();
 };
 
-window.editEmployee = (id) => {
+function editEmployee(id) {
   const emp = myCompany.getAllEmployees().find(e => e.getId() === id);
-  inputId.value = emp.getId();
-  inputName.value = emp.getName();
-  inputTitle.value = emp.title;
-  inputSalary.value = emp.getSalary();
-  showMessage('Data loaded to the head section. Edit and click "Add / Update Employee"');
+
+  // Foolproof protection 8-) Paranoid online... )))
+  if (emp) {
+    inputId.value = emp.getId();
+    inputName.value = emp.getName();
+    inputTitle.value = emp.title;
+    inputSalary.value = emp.getSalary();
+    showMessage('Data loaded to the head section. Edit and click "Add / Update Employee"');
+  }
 }
 
 renderEmployees();
