@@ -176,7 +176,7 @@ function deleteEmployee(id) {
   myCompany.fireEmployee(id);
   showMessage(`Employee with ID ${id} deleted`);
   renderEmployees();
-};
+}
 
 function editEmployee(id) {
   const emp = myCompany.getAllEmployees().find(e => e.getId() === id);
