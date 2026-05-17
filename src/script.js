@@ -20,6 +20,15 @@ const errorColor = rootStyles.getPropertyValue('--color-cancel').trim();
 const btnClear = document.getElementById('btn-clear');
 
 /**
+ * Name input formating to string with all words in upper case.
+ * @param {string} str
+ * @return {string}
+ */
+function capitalizeName(str) {
+  return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+}
+
+/**
  * Show an action message
  * @param {string} text
  * @param {boolean} isError
@@ -96,6 +105,7 @@ function renderEmployees(employeesToRender = myCompany.getAllEmployees()) {
     // Edit button
     const editBtn = document.createElement('button');
     editBtn.textContent = 'Edit';
+    editBtn.className = 'btn';
     editBtn.addEventListener('click', () => {
       editEmployee(emp.getId());
     });
@@ -103,6 +113,7 @@ function renderEmployees(employeesToRender = myCompany.getAllEmployees()) {
     // Delete button
     const deleteBtn = document.createElement('button');
     deleteBtn.textContent = 'Delete';
+    editBtn.className = 'btn';
     deleteBtn.style.color = errorColor;
     deleteBtn.addEventListener('click', () => {
       deleteEmployee(emp.getId());
@@ -120,17 +131,33 @@ function renderEmployees(employeesToRender = myCompany.getAllEmployees()) {
   formContainer.appendChild(ul);
 }
 
+[inputId, inputSalary].forEach(inputElement => {
+  inputElement.addEventListener('keydown', (e) => {
+    if (['-', '+', 'e', 'E'].includes(e.key)) {
+      e.preventDefault();
+    }
+  });
+});
+
 btnAdd.addEventListener('click', () => {
   const id = parseInt(inputId.value);
-  const name = inputName.value.trim();
+  let name = inputName.value.trim();
   const title = inputTitle.value.trim();
   const salary = parseFloat(inputSalary.value);
 
   // Data validation block
   if (!id || isNaN(id) || id < 1) return showMessage('Error: Invalid ID', true);
   if (!name) return showMessage('Error: Name is empty', true);
+
+  const nameRegex = /^[A-Za-z\s]+$/;
+  if (!nameRegex.test(name)) {
+    return showMessage('Error: Name must contain letters only', true);
+  }
+
   if (!title) return showMessage('Error: Title is empty', true);
-  if (!salary || salary <= 10000) return showMessage('Error: Salary must be greater than 10`000 (company rules)', true);
+  if (!salary || salary < 10000) return showMessage('Error: Salary must be greater than 10`000 (company rules)', true);
+
+  name = capitalizeName(name);
 
   const isExist = myCompany.getAllEmployees().find(e => e.getId() === id);
 
@@ -195,6 +222,7 @@ btnClear.addEventListener('click', () => {
 
 function deleteEmployee(id) {
   myCompany.fireEmployee(id);
+  myCompany.saveToStorage();
   showMessage(`Employee with ID ${id} deleted`);
   renderEmployees();
 }
