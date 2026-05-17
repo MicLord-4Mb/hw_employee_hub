@@ -124,9 +124,9 @@ btnAdd.addEventListener('click', () => {
 
   // Update employee section
   if (isExist) {
-    myCompany.fireEmployee(id);
-    const updatedEmp = new Employee(id, name, title, salary);
-    myCompany.hireEmployee(updatedEmp);
+    isExist.setName(name);
+    isExist.title = title;
+    isExist.setSalary(salary);
     showMessage(`Employee info with ID${id} updated.`);
   }
   else {
