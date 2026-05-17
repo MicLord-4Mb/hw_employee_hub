@@ -18,8 +18,8 @@
         <div class="menu-wrapper">
           <section class="menu-section-add">
             <div>
-              <label for="emp-id">ID</label>
-              <input class="menu-inp-num" type="number" id="emp-id" placeholder="ID (example, 1)" />
+              <label for="emp-id">ID #:</label>
+              <input class="menu-inp-num" type="number" id="emp-id" min="1" placeholder="ID (example, 1)" />
             </div>
             <div>
               <label for="emp-name">Name:</label>
@@ -31,7 +31,7 @@
             </div>
             <div>
               <label for="emp-salary">Salary:</label>
-              <input class="menu-inp-num" type="number" id="emp-salary" placeholder="Salary" />
+              <input class="menu-inp-num" type="number" id="emp-salary" min="10000" placeholder="Salary" />
             </div>
             <button class="btn" id="btn-add">Add / Update employee</button>
           </section>

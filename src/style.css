@@ -38,9 +38,6 @@ ul li {
     box-shadow: 1px 0 0 var(--color-primary-medium);
 }
 
-ul li div {
-}
-
 .app {
     width: 100%;
     min-height: 100vh;
@@ -53,45 +50,86 @@ ul li div {
 
 .app-header {
     width: 100vw;
-    height: 175px;
+    height: auto;
+    padding: 15px 0;
     text-align: center;
     background-color: var(--color-neutral-bg);
     color: var(--color-neutral-title);
+    border-bottom: 1px solid var(--color-neutral-stroke);
 }
 
 .menu-wrapper {
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    justify-content: space-between;
+    gap: 15px;
+    justify-content: center;
 }
 
-.menu-section-add {
+.input-block, .search-block {
     display: flex;
-    flex-direction: row;
-    gap: 10px;
-    justify-content: center;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+}
+
+.input-block label, .search-block label {
+    font-size: 12px;
+    font-weight: bold;
+    color: var(--color-neutral-btext);
+}
+
+.menu-inp-num, .menu-inp-txt, .menu-inp-search {
+    padding: 6px 10px;
+    border: 1px solid var(--color-neutral-stroke);
+    border-radius: 4px;
+    outline: none;
+    height: 34px;
+}
+
+.menu-inp-num:focus, .menu-inp-txt:focus, .menu-inp-search:focus {
+    border-color: var(--color-primary-medium);
 }
 
 .menu-inp-num {
-
+    width: 90px;
 }
 
 .menu-inp-txt {
-
+    width: 200px;
 }
 
-.menu-section-find {
+.menu-inp-search {
+    width: 250px;
+}
+
+.menu-section-add, .menu-section-find {
     display: flex;
     flex-direction: row;
-    gap: 10px;
+    gap: 12px;
+    align-items: flex-end;
     justify-content: center;
+    width: 100%;
+}
+
+.btn {
+    height: 34px;
+    padding: 0 15px;
+    border: 1px solid var(--color-primary-medium);
+    background-color: var(--color-neutral-white);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn:hover {
+    background-color: var(--color-primary-light);
 }
 
 .menu-msg {
     text-align: center;
+    font-weight: bold;
+    min-height: 18px;
 }
-
 
 .app-content {
     flex: 1 0 auto;
@@ -109,5 +147,5 @@ ul li div {
 }
 
 #btn-add {
-    width: 170px;
+    width: auto;
 }
